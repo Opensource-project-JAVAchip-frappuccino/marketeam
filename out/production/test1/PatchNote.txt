@@ -1,0 +1,33 @@
+2020/10/30 Angry_OvO
+임시 ID PW에 맞게 입력시 로그인 성공 화면 출력
+패치노트가 메인 타이틀 화면에서 출력
+
+2022/10/31 Nyanpunch
+DB연동클래스_ConnectServer
+ID PW 입력받아 DB에 저장 - 완료
+Login_Title 클래스에서 입력받은 ID PW를 DB클래스에 전송하여 저장 - 완
+
+
+2022/11/15 Angry_OvO
+유저 정보창 구성
+각 라디오 버튼 그룹화
+
+
+2022/11/16 Angry_OvO
+유저 정보창 구현
+textbox에 입력한 내용과
+각 라디오 버튼으로 선택한 내용 저장
+
+2022/11/21 w_nth__sk
+메인 화면 구성
+
+2022/11/25 Angry_OvO
+메인화면 내 정보창 구현
+User 정보 새로 받는 버튼 구현
+로그아웃 버튼 구현
+
+2022/11/25 Nyanpunch
+DB 테이블 수정
+login_title, user_info DB연동
+login_title 버그발견 FindID 수정 필요.
+
