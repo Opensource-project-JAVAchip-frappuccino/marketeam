@@ -5,7 +5,7 @@ public class DATABASECLASS
      static Vector<UserDB> Users = new Vector<>();
      static Vector<gesipanDB> Gesipan = new Vector<>();
 
-     static Vector<maketeamDB> maketeam = new Vector<>();
+     static int CurrentID;
 
     public void inputUsers(UserDB a)
     {
@@ -23,10 +23,5 @@ public class DATABASECLASS
             return true;
         else
             return false;
-    }
-
-    public void inputmaketeam(maketeamDB a)
-    {
-        maketeam.add(a);
     }
 }

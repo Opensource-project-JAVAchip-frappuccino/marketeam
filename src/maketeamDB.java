@@ -6,7 +6,16 @@ public class maketeamDB
 
     String name = new String();
 
-    static int count = 0;
+    UserDB User = new UserDB();
 
     int teamnum = 1;
+
+    public maketeamDB()
+    {
+
+    }
+    public maketeamDB(UserDB User)
+    {
+        this.User = User;
+    }
 }

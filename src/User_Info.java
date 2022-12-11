@@ -46,7 +46,7 @@ public class User_Info extends JFrame
     UserDB User = new UserDB();
 
 
-    public User_Info(UserDB User)
+    public User_Info()
     {
         setContentPane(user_panel);
         setTitle("User_Info");
@@ -54,7 +54,6 @@ public class User_Info extends JFrame
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setVisible(true);
 
-        this.User = User;
 
         okbtn.addActionListener(new ActionListener()
         {
@@ -62,31 +61,17 @@ public class User_Info extends JFrame
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                input_data();
-                boolean complete = false;
-                for(int i = 0; i < 7; i++)
-                {
-                    if(User.match_var[i] == 0)
-                    {
-                        complete = true;
-                    }
-                    else complete = false;
-                }
-                if(User.match_var[6] == 3 || complete)
-                {
-                    JOptionPane.showMessageDialog(null, "정보를 모두 입력하세요", "내 정보 입력", JOptionPane.DEFAULT_OPTION);
-                    return;
-                }
+                ConnectServer cs = new ConnectServer();
+                DATABASECLASS DB = new DATABASECLASS();
                 input_data();
                 dispose();
-                User.signup = true;
-                if(User.grade == 0)
+                if(cs.GetUserinfo(DB.CurrentID,2) == 0)
                 {
-                    Main_Title_professor main = new Main_Title_professor(User);
+                    Main_Title_professor main = new Main_Title_professor();
                 }
                 else
                 {
-                    Main_Title main = new Main_Title(User);
+                    Main_Title main = new Main_Title();
                 }
 
             }
@@ -95,17 +80,23 @@ public class User_Info extends JFrame
 
     public void input_data()
     {
-        User.name = textField3.getText();
-        User.major = textField1.getText();
-        User.hakbun = Integer.parseInt(textField2.getText());
-        User.grade = combobtn_1();
-        User.match_var[0] = rbutn_1();
-        User.match_var[1] = rbutn_2();
-        User.match_var[2] = rbutn_3();
-        User.match_var[3] = rbutn_4();
-        User.match_var[4] = rbutn_5();
-        User.match_var[5] = rbutn_6();
-        User.match_var[6] = rbutn_7();
+        String name = textField3.getText();    //이름
+        String major = textField1.getText();   //전공
+        int user_info[] = new int[9];
+        user_info[0] = Integer.parseInt(textField2.getText()); //학번
+        user_info[1] = combobtn_1();      //학년
+        user_info[2] = rbutn_1(); //팀장
+        user_info[3] = rbutn_2(); //발표
+        user_info[4] = rbutn_3(); //ppt
+        user_info[5] = rbutn_4(); //문서
+        user_info[6] = rbutn_5(); //프백
+        user_info[7] = rbutn_6(); //코딩
+        user_info[8] = rbutn_7(); //동의
+
+        ConnectServer cs = new ConnectServer();
+        cs.CheckList(user_info, major, name); //수정 //작동 확인해야 함. //미확인.
+
+        cs.DisconnectServer();
     }
 
     public int combobtn_1()

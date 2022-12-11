@@ -18,8 +18,6 @@ public class Login_Title extends JFrame
     private JPanel Logine_panel;
     private JScrollPane Notice_Scroll;
 
-    DATABASECLASS DB = new DATABASECLASS();
-
     public Login_Title()
     {
         setContentPane(Main_panel);
@@ -43,10 +41,36 @@ public class Login_Title extends JFrame
             @Override
             public void actionPerformed(ActionEvent e) {
 
-               findID();
+                String ID = textField1.getText();
+                char[] PW = passwordField1.getPassword();
+
+                int id = Integer.parseInt(ID);
+                int pw = Integer.parseInt(new String(PW));
+
+                ConnectServer cs = new ConnectServer();
+                DATABASECLASS DB = new DATABASECLASS();
+                DB.CurrentID = id;
+
+                boolean flag = cs.FindID(id, pw);           //아이디만 맞아도 로그인되는 버그
+                if(flag) {
+                    System.out.println("아이디 존재.");
+                    if(cs.GetUserinfo(id,2) == 0)
+                    {
+                        Main_Title_professor main = new Main_Title_professor();
+                    }
+                    else
+                    {
+                        Main_Title main = new Main_Title();
+                    }
+                    dispose();
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "없는 회원정보입니다.", "회원 가입 필요", JOptionPane.DEFAULT_OPTION);
+                }
+
+                cs.DisconnectServer();
             }
         });
-
     }
     private void login_enter()
     {
@@ -54,7 +78,34 @@ public class Login_Title extends JFrame
         {
             public void actionPerformed(ActionEvent arg0)
             {
-                findID();
+                String ID = textField1.getText();
+                char[] PW = passwordField1.getPassword();
+
+                int id = Integer.parseInt(ID);
+                int pw = Integer.parseInt(new String(PW));
+
+                DATABASECLASS DB = new DATABASECLASS();
+                DB.CurrentID = id;
+
+                ConnectServer cs = new ConnectServer();
+                boolean flag = cs.FindID(id, pw);           //아이디만 맞아도 로그인되는 버그
+                if(flag) {
+                    System.out.println("아이디 존재.");
+                    if(cs.GetUserinfo(id,2) == 0)
+                    {
+                        Main_Title_professor main = new Main_Title_professor();
+                    }
+                    else
+                    {
+                        Main_Title main = new Main_Title();
+                    }
+                    dispose();
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "없는 회원정보입니다.", "회원 가입 필요", JOptionPane.DEFAULT_OPTION);
+                }
+
+                cs.DisconnectServer();
             }
         };
         KeyStroke enter = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false);
@@ -91,66 +142,30 @@ public class Login_Title extends JFrame
         signup.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
-                {
-                    String ID = textField1.getText();
-                    char[] PW = passwordField1.getPassword();
+            {
+                String ID = textField1.getText();
+                char[] PW = passwordField1.getPassword();
 
-                    UserDB user = new UserDB();
+                int id = Integer.parseInt(ID);
+                int pw = Integer.parseInt(new String(PW));
 
-                    user.hakbun = Integer.parseInt(ID);
-                    user.password = Integer.parseInt(new String(PW));
+                ConnectServer cs = new ConnectServer();
 
-                    DB.inputUsers(user);
+                if(id != pw){ //불일치 시 DB저장 안되게하고 넘어가기
+                    JOptionPane.showMessageDialog(null, "최초 회원가입시 아이디와 비밀번호는 학번으로 같아야 합니다.", "회원 가입 필요", JOptionPane.DEFAULT_OPTION);
+                }
+                else {
+                    if (cs.InputData(id, pw)) {
+                        JOptionPane.showMessageDialog(null, "이미 계정이 존재합니다.", "로그인 하세요", JOptionPane.DEFAULT_OPTION);
+                    } else if (id == pw) { //회원가입이니까 둘이 일치하면 회원가입 완료로 로그인 개념으로 넘어감
+                        User_Info info = new User_Info(); //수정
+                    }
+                }
+
+                cs.DisconnectServer();
 
             }
         });
-    }
-
-    public void findID()
-    {
-        String ID = textField1.getText();           //id 입력받은 곳
-        char[] PW = passwordField1.getPassword();   //pw 입력받은 곳
-
-        int a = Integer.parseInt(ID);
-        int b = Integer.parseInt(new String(PW));
-
-        if(DB.isEmpty())
-        {
-            JOptionPane.showMessageDialog(null, "없는 회원정보입니다.", "회원 가입 필요", JOptionPane.DEFAULT_OPTION);
-        }
-
-        for(int i = 0; i < DB.Users.size(); i++)
-        {
-            if (a == DB.Users.get(i).hakbun && b == DB.Users.get(i).password)
-            {
-                dispose();
-                if(DB.Users.get(i).signup)
-                {
-                    if(DB.Users.get(i).grade == 0)
-                    {
-                        Main_Title_professor main = new Main_Title_professor(DB.Users.get(i));
-                    }
-                    else
-                    {
-                        Main_Title main = new Main_Title(DB.Users.get(i));
-                    }
-                }
-                else
-                {
-                    User_Info info = new User_Info(DB.Users.get(i));
-                }
-
-            }
-            else if (a != DB.Users.get(i).hakbun)
-            {
-                JOptionPane.showMessageDialog(null, "학번을 정확히 입력하세요.", "학번 확인", JOptionPane.DEFAULT_OPTION);
-            }
-            if(a == DB.Users.get(i).hakbun && b != DB.Users.get(i).password)
-            {
-                JOptionPane.showMessageDialog(null, "비밀번호가 틀렸습니다.", "비밀번호 확인", JOptionPane.DEFAULT_OPTION);
-            }
-        }
-
     }
 
 }

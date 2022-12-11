@@ -1,3 +1,5 @@
+import java.util.Vector;
+
 public class gesipanDB
 {
     String subject_name = new String();
@@ -7,5 +9,7 @@ public class gesipanDB
     String subject_info = new String();
 
     String prerequisite = new String();
+
+    Vector<maketeamDB> subject = new Vector<>();
     int teamnum;
 }

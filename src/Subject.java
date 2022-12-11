@@ -34,6 +34,7 @@ public class Subject extends JFrame
             public void actionPerformed(ActionEvent e)
             {
                 dispose();
+                Main_Title_professor update = new Main_Title_professor();
             }
         });
         doneButton.addActionListener(new ActionListener() {
@@ -42,22 +43,28 @@ public class Subject extends JFrame
             {
                 input_data();
                 dispose();
-                Main_Title_professor update = new Main_Title_professor(User);
+                Main_Title_professor update = new Main_Title_professor();
             }
         });
     }
 
     public void input_data()
     {
-        gesipanDB Gesipan = new gesipanDB();
-        Gesipan.subject_name = subject_text.getText();
-        Gesipan.professor = professor_text.getText();
-        Gesipan.stdnum = professor_text.getText();
-        Gesipan.subject_info = sub_info_text.getText();
-        Gesipan.prerequisite = presub_text.getText();
-        Gesipan.grade = grade_text.getText();
-        Gesipan.teamnum = rbutn();
-        DB.inputGesipan(Gesipan);
+        String [] str = new String[5];
+        str[0] = subject_text.getText();
+        str[1] = professor_text.getText();
+        str[2] = sub_info_text.getText();
+        str[3] = presub_text.getText();
+        str[4] = grade_text.getText();
+
+        int stdnum = Integer.parseInt(stdnum_text.getText());
+        int teamnum = rbutn();
+
+        ConnectServer cs = new ConnectServer();
+
+        cs.SetCourse(str,stdnum,teamnum);
+
+
 
     }
 
