@@ -14,9 +14,27 @@ public class Make_Team extends JFrame
 
     public Make_Team(int x)
     {
+        // TODO Auto-generated method stub
+        System.out.println("[GUI (awt/swing) - JFrame 프레임 창 크기 고정 수행 실시]");
+
+
+        //TODO 부모 프레임 크기 설정 (가로, 세로)
+        setSize(450, 300);
+
+        //TODO 부모 프레임을 화면 가운데에 배치
+        setLocationRelativeTo(null);
+
+        //TODO 부모 프레임 창 크기 고정 실시
+        setResizable(false);
+
+        //TODO 부모 레이아웃 설정
+        getContentPane().setLayout(null);
+
+        //TODO 부모 프레임이 보이도록 설정
+        setVisible(true);
+
         setContentPane(Main);
         setTitle("User_Info");
-        setSize(500,250);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setVisible(true);
 

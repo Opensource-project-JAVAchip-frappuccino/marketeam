@@ -1,7 +1,6 @@
 //import ConnectServer.ConnectServer;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 
@@ -11,25 +10,41 @@ public class Login_Title extends JFrame
     private JButton Login;
     private JTextField textField1;
     private JPasswordField passwordField1;
-    private JPanel Title_panel;
+    private JPanel Login_panel;
     private JLabel Notice;
     private JLabel Title_img;
     private JPanel Main_panel;
-    private JPanel Logine_panel;
     private JScrollPane Notice_Scroll;
 
     public Login_Title()
     {
+
+        // TODO Auto-generated method stub
+        System.out.println("[GUI (awt/swing) - JFrame 프레임 창 크기 고정 수행 실시]");
+
+
+        //TODO 부모 프레임 크기 설정 (가로, 세로)
+        setSize(380, 500);
+
+        //TODO 부모 프레임을 화면 가운데에 배치
+        setLocationRelativeTo(null);
+
+        //TODO 부모 프레임 창 크기 고정 실시
+        setResizable(false);
+
+        //TODO 부모 레이아웃 설정
+        getContentPane().setLayout(null);
+
+        setVisible(true);
         setContentPane(Main_panel);
         setTitle("");
-        setSize(1000,500);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
-        Notice_Scroll.setViewportView(Notice);
+        //Notice_Scroll.setViewportView(Notice);
 
         this.login_enter();
         this.loginbtnclicked();
-        this.ReadFile();
+        //this.ReadFile();
         this.signupbtn();
 
 

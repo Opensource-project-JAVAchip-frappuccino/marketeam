@@ -48,9 +48,26 @@ public class User_Info extends JFrame
 
     public User_Info()
     {
+        System.out.println("[GUI (awt/swing) - JFrame 프레임 창 크기 고정 수행 실시]");
+
+
+        //TODO 부모 프레임 크기 설정 (가로, 세로)
+        setSize(425, 550);
+
+        //TODO 부모 프레임을 화면 가운데에 배치
+        setLocationRelativeTo(null);
+
+        //TODO 부모 프레임 창 크기 고정 실시
+        setResizable(false);
+
+        //TODO 부모 레이아웃 설정
+        getContentPane().setLayout(null);
+
+        //TODO 부모 프레임이 보이도록 설정
+        setVisible(true);
+
         setContentPane(user_panel);
         setTitle("User_Info");
-        setSize(1000,500);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setVisible(true);
 
